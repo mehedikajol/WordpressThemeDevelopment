@@ -1,37 +1,39 @@
 <?php get_header(); ?>
 
 <div class="banner-carousel banner-carousel-2 mb-0">
-  <div class="banner-carousel-item" style="background-image:url(<?php echo get_template_directory_uri(); ?>/images/slider-main/bg4.jpg)">
-    <div class="container">
-        <div class="box-slider-content">
-          <div class="box-slider-text">
-              <h2 class="box-slide-title">17 Years Of Excellence In</h2>
-              <h3 class="box-slide-sub-title">Construction Industry</h3>
-              <p class="box-slide-description">You have ideas, goals, and dreams. We have a culturally diverse, forward
-                thinking team looking for talent like.</p>
-              <p>
-                <a href="services.html" class="slider btn btn-primary">Our Service</a>
-              </p>
-          </div>
-        </div>
-    </div>
-  </div>
-
-  <div class="banner-carousel-item" style="background-image:url(<?php echo get_template_directory_uri(); ?>/images/slider-main/bg5.jpg)">
-    <div class="slider-content text-left">
+  <?php
+    $args = array(
+      'post_type' => 'sliders',
+      'posts_per_page' => 3,
+    );
+    $query = new WP_Query($args);
+    while($query -> have_posts()){
+      $query -> the_post();
+      $slider_subtitle = get_field('slider_subtitle');
+      $slider_description = get_field('slider_description');
+      $slider_image = get_field('slider_image');
+      $slider_button_text = get_field('slider_button_text');
+      $slider_button_link = get_field('slider_button_link');
+    ?>
+      <div class="banner-carousel-item" style="background-image:url(<?php echo $slider_image['url']; ?>">
         <div class="container">
-          <div class="box-slider-content">
+
+            <div class="box-slider-content">
               <div class="box-slider-text">
-                <h2 class="box-slide-title">When Services Matters</h2>
-                <h3 class="box-slide-sub-title">Your Choice is Simple</h3>
-                <p class="box-slide-description">You have ideas, goals, and dreams. We have a culturally diverse, forward
-                    thinking team looking for talent like.</p>
-                <p><a href="about.html" class="slider btn btn-primary" aria-label="about-us">Know Us</a></p>
+                  <h2 class="box-slide-title"><?php echo $slider_subtitle; ?></h2>
+                  <h3 class="box-slide-sub-title"><?php the_title(); ?></h3>
+                  <p class="box-slide-description"><?php echo $slider_description; ?></p>
+                  <p>
+                    <a href="<?php echo $slider_button_link; ?>" class="slider btn btn-primary"><?php echo $slider_button_text; ?></a>
+                  </p>
               </div>
-          </div>
+            </div>
         </div>
-    </div>
-  </div>
+      </div>
+    <?php
+    }
+    wp_reset_postdata();
+  ?>
 </div>
 
 <section class="call-to-action no-padding">
@@ -40,7 +42,7 @@
         <div class="row">
           <div class="col-md-8 text-center text-md-left">
               <div class="call-to-action-text">
-                <h3 class="action-title">We understand your needs on construction</h3>
+                <h3 class="action-title"><?php echo esc_html__('We understand your needs on construction', 'constra'); ?></h3>
               </div>
           </div><!-- Col end -->
           <div class="col-md-4 text-center text-md-right mt-3 mt-md-0">

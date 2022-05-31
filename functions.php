@@ -11,7 +11,7 @@ function theme_setup(){
 
     /*** CUSTOM POST THUMBNAIL SUPPORT ***/
     add_theme_support('post-thumbnails', array(
-        'post', 'sliders', 'services', 'portfolios',
+        'post', 'sliders', 'services', 'portfolios', 'clients',
     ));
  
 }
@@ -133,6 +133,66 @@ function constra_custom_posts(){
         ),
         'show_in_rest' => true,
         'taxonomies' => array( 'category', 'tags'),
+    ));
+
+    // REGISTER TESTIMONIALS
+    register_post_type('testimonials', array(
+        'labels' => array(
+            'name' => __('Testimonials', 'constra'),
+            'singular_name' => __('Testimonial', 'constra'),
+            'menu_name' => __('Testimonials', 'constra'),
+            'name_admin_bar' => __('Testimonial', 'constra'),
+            'add_new' => __('Add Testimonial', 'constra'),
+            'add_new_item' => __('Add New Testimonial', 'constra'),
+            'new_item' => __('New Testimonial', 'constra'),
+            'edit_item' => __('Edit Testimonial', 'constra'),
+            'view_item' => __('View Testimonials', 'constra'),
+            'all_items' => __('All Testimonials', 'constra'),
+            'search_items' => __('Search Testimonials', 'constra'),
+            'not_found' => __('No Testimonials Found', 'constra'),
+            'not_found_in_trash' => __('No Testimonials in Trash', 'constra'),
+            'featured_image' => __( 'Testimonial Image', 'constra'),
+            'set_featured_image'    => __( 'Set Testimonial Image', 'constra'),
+            'remove_featured_image' => __( 'Remove Testimonial Image', 'constra'),
+            'use_featured_image'    => __( 'Use Testimonial image', 'constra'),
+        ),
+        'public' => true,
+        'menu_icon' => 'dashicons-testimonial',
+        'show_ui' => true,
+        'supports' => array(
+            'title', 'editor', 'custom-fields', 'page-attributes',
+        ),
+        'show_in_rest' => true,
+    ));
+
+    // REGISTER CLIENTS
+    register_post_type('clients', array(
+        'labels' => array(
+            'name' => __('Clients', 'constra'),
+            'singular_name' => __('Client', 'constra'),
+            'menu_name' => __('Clients', 'constra'),
+            'name_admin_bar' => __('Client', 'constra'),
+            'add_new' => __('Add Client', 'constra'),
+            'add_new_item' => __('Add New Client', 'constra'),
+            'new_item' => __('New Client', 'constra'),
+            'edit_item' => __('Edit Client', 'constra'),
+            'view_item' => __('View Clients', 'constra'),
+            'all_items' => __('All Clients', 'constra'),
+            'search_items' => __('Search Clients', 'constra'),
+            'not_found' => __('No Clients Found', 'constra'),
+            'not_found_in_trash' => __('No Clients in Trash', 'constra'),
+            'featured_image' => __( 'Client Image', 'constra'),
+            'set_featured_image'    => __( 'Set Client Image', 'constra'),
+            'remove_featured_image' => __( 'Remove Client Image', 'constra'),
+            'use_featured_image'    => __( 'Use Client image', 'constra'),
+        ),
+        'public' => true,
+        'menu_icon' => 'dashicons-groups',
+        'show_ui' => true,
+        'supports' => array(
+            'title', 'thumbnail', 'custom-fields',
+        ),
+        'show_in_rest' => true,
     ));
 }
 add_action('init', 'constra_custom_posts');

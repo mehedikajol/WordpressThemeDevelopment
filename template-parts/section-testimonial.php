@@ -5,62 +5,37 @@
           <h3 class="column-title">Testimonials</h3>
 
           <div id="testimonial-slide" class="testimonial-slide">
-              <div class="item">
-                <div class="quote-item">
-                    <span class="quote-text">
-                      Question ran over her cheek When she reached the first hills of the Italic Mountains, she had a last
-                      view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the
-                      subline of her own road.
-                    </span>
 
-                    <div class="quote-item-footer">
-                      <img loading="lazy" class="testimonial-thumb" src="<?php echo get_template_directory_uri(); ?>/images/clients/testimonial1.png" alt="testimonial">
-                      <div class="quote-item-info">
-                          <h3 class="quote-author">Gabriel Denis</h3>
-                          <span class="quote-subtext">Chairman, OKT</span>
-                      </div>
-                    </div>
-                </div><!-- Quote item end -->
-              </div>
-              <!--/ Item 1 end -->
+            <?php
+              $args = array(
+                'post_type' => 'testimonials',
+                'posts_per_page' => 3,
+              );
+              $query = new WP_Query($args);
+              while($query -> have_posts()){
+                $query -> the_post();
+                $image = get_field('testimonial_image');
+            ?>
 
               <div class="item">
                 <div class="quote-item">
                     <span class="quote-text">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor inci done idunt ut
-                      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitoa tion ullamco laboris
-                      nisi aliquip consequat.
+                      <?php the_content(); ?>
                     </span>
 
                     <div class="quote-item-footer">
-                      <img loading="lazy" class="testimonial-thumb" src="<?php echo get_template_directory_uri(); ?>/images/clients/testimonial2.png" alt="testimonial">
+                      <img loading="lazy" class="testimonial-thumb" src="<?php echo $image['url'];?>" alt="testimonial">
                       <div class="quote-item-info">
-                          <h3 class="quote-author">Weldon Cash</h3>
-                          <span class="quote-subtext">CFO, First Choice</span>
+                          <h3 class="quote-author"><?php the_title(); ?></h3>
+                          <span class="quote-subtext"><?php the_field('testimonial_role'); ?></span>
                       </div>
                     </div>
                 </div><!-- Quote item end -->
               </div>
-              <!--/ Item 2 end -->
 
-              <div class="item">
-                <div class="quote-item">
-                    <span class="quote-text">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor inci done idunt ut
-                      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitoa tion ullamco laboris
-                      nisi ut commodo consequat.
-                    </span>
-
-                    <div class="quote-item-footer">
-                      <img loading="lazy" class="testimonial-thumb" src="<?php echo get_template_directory_uri(); ?>/images/clients/testimonial3.png" alt="testimonial">
-                      <div class="quote-item-info">
-                          <h3 class="quote-author">Minter Puchan</h3>
-                          <span class="quote-subtext">Director, AKT</span>
-                      </div>
-                    </div>
-                </div><!-- Quote item end -->
-              </div>
-              <!--/ Item 3 end -->
+            <?php
+              }
+            ?>
 
           </div>
           <!--/ Testimonial carousel end-->
@@ -71,42 +46,23 @@
           <h3 class="column-title">Happy Clients</h3>
 
           <div class="row all-clients">
+            <?php
+              $args = array(
+                'post_type' => 'clients',
+                'posts_per_page' => 6,
+              ); 
+              $query = new WP_Query($args);
+              while($query -> have_posts()){
+                $query -> the_post();
+            ?>
               <div class="col-sm-4 col-6">
                 <figure class="clients-logo">
-                    <a href="#!"><img loading="lazy" class="img-fluid" src="<?php echo get_template_directory_uri(); ?>/images/clients/client1.png" alt="clients-logo" /></a>
+                    <a target="_blank" href="<?php the_field('client_url'); ?>"><img loading="lazy" class="img-fluid" src="<?php the_post_thumbnail_url(); ?>" alt="clients-logo" /></a>
                 </figure>
-              </div><!-- Client 1 end -->
-
-              <div class="col-sm-4 col-6">
-                <figure class="clients-logo">
-                    <a href="#!"><img loading="lazy" class="img-fluid" src="<?php echo get_template_directory_uri(); ?>/images/clients/client2.png" alt="clients-logo" /></a>
-                </figure>
-              </div><!-- Client 2 end -->
-
-              <div class="col-sm-4 col-6">
-                <figure class="clients-logo">
-                    <a href="#!"><img loading="lazy" class="img-fluid" src="<?php echo get_template_directory_uri(); ?>/images/clients/client3.png" alt="clients-logo" /></a>
-                </figure>
-              </div><!-- Client 3 end -->
-
-              <div class="col-sm-4 col-6">
-                <figure class="clients-logo">
-                    <a href="#!"><img loading="lazy" class="img-fluid" src="<?php echo get_template_directory_uri(); ?>/images/clients/client4.png" alt="clients-logo" /></a>
-                </figure>
-              </div><!-- Client 4 end -->
-
-              <div class="col-sm-4 col-6">
-                <figure class="clients-logo">
-                    <a href="#!"><img loading="lazy" class="img-fluid" src="<?php echo get_template_directory_uri(); ?>/images/clients/client5.png" alt="clients-logo" /></a>
-                </figure>
-              </div><!-- Client 5 end -->
-
-              <div class="col-sm-4 col-6">
-                <figure class="clients-logo">
-                    <a href="#!"><img loading="lazy" class="img-fluid" src="<?php echo get_template_directory_uri(); ?>/images/clients/client6.png" alt="clients-logo" /></a>
-                </figure>
-              </div><!-- Client 6 end -->
-
+              </div>
+            <?php
+              }
+            ?>
           </div><!-- Clients row end -->
 
         </div><!-- Col end -->

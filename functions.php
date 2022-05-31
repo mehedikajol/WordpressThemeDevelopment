@@ -11,7 +11,7 @@ function theme_setup(){
 
     /*** CUSTOM POST THUMBNAIL SUPPORT ***/
     add_theme_support('post-thumbnails', array(
-        'post', 'sliders',
+        'post', 'sliders', 'services', 'portfolios',
     ));
  
 }
@@ -69,9 +69,86 @@ function constra_custom_posts(){
         'menu_icon' => 'dashicons-slides',
         'show_ui' => true,
         'supports' => array(
-            'title', 'custom-fields',
+            'title', 'custom-fields', 'page-attributes',
         ),
         'show_in_rest' => true,
     ));
+
+    // REGISTER SERVICES
+    register_post_type('services', array(
+        'labels' => array(
+            'name' => __('Services', 'constra'),
+            'singular_name' => __('Service', 'constra'),
+            'menu_name' => __('Services', 'constra'),
+            'name_admin_bar' => __('Service', 'constra'),
+            'add_new' => __('Add Service', 'constra'),
+            'add_new_item' => __('Add New Service', 'constra'),
+            'new_item' => __('New Service', 'constra'),
+            'edit_item' => __('Edit Service', 'constra'),
+            'view_item' => __('View Service', 'constra'),
+            'all_items' => __('All Services', 'constra'),
+            'search_items' => __('Search Services', 'constra'),
+            'not_found' => __('No Services Found', 'constra'),
+            'not_found_in_trash' => __('No Services in Trash', 'constra'),
+            'featured_image' => __( 'Service Image', 'constra'),
+            'set_featured_image'    => __( 'Set Service Image', 'constra'),
+            'remove_featured_image' => __( 'Remove Service Image', 'constra'),
+            'use_featured_image'    => __( 'Use Service image', 'constra'),
+        ),
+        'public' => true,
+        'menu_icon' => 'dashicons-lightbulb',
+        'show_ui' => true,
+        'supports' => array(
+            'title', 'editor', 'excerpt', 'thumbnail', 'custom-fields', 'page-attributes',
+        ),
+        'show_in_rest' => true,
+    ));
+
+    // REGISTER PORTFOLIOS
+    register_post_type('portfolios', array(
+        'labels' => array(
+            'name' => __('Portfolios', 'constra'),
+            'singular_name' => __('Portfolio', 'constra'),
+            'menu_name' => __('Portfolios', 'constra'),
+            'name_admin_bar' => __('Portfolio', 'constra'),
+            'add_new' => __('Add Portfolio', 'constra'),
+            'add_new_item' => __('Add New Portfolio', 'constra'),
+            'new_item' => __('New Portfolio', 'constra'),
+            'edit_item' => __('Edit Portfolio', 'constra'),
+            'view_item' => __('View Portfolios', 'constra'),
+            'all_items' => __('All Portfolios', 'constra'),
+            'search_items' => __('Search Portfolios', 'constra'),
+            'not_found' => __('No Portfolios Found', 'constra'),
+            'not_found_in_trash' => __('No Portfolios in Trash', 'constra'),
+            'featured_image' => __( 'Portfolio Image', 'constra'),
+            'set_featured_image'    => __( 'Set Portfolio Image', 'constra'),
+            'remove_featured_image' => __( 'Remove Portfolio Image', 'constra'),
+            'use_featured_image'    => __( 'Use Portfolio image', 'constra'),
+        ),
+        'public' => true,
+        'menu_icon' => 'dashicons-portfolio',
+        'show_ui' => true,
+        'supports' => array(
+            'title', 'editor', 'thumbnail', 'custom-fields', 'page-attributes',
+        ),
+        'show_in_rest' => true,
+        'taxonomies' => array( 'category', 'tags'),
+    ));
 }
 add_action('init', 'constra_custom_posts');
+
+
+// SAVE ACF DATA INTO LOCAL STORAGE
+function save_acf_data_json( $path ) {
+    $path = get_stylesheet_directory() . '/acf-json';
+    return $path;
+}
+add_filter('acf/settings/save_json', 'save_acf_data_json');
+
+// LOAD ACF DATA FROM LOCAL STORAGE
+function load_acf_data_json( $paths ) {
+    unset($paths[0]);
+    $paths[] = get_stylesheet_directory() . '/acf-json';
+    return $paths;  
+}
+add_filter('acf/settings/load_json', 'load_acf_data_json');
